@@ -11,7 +11,7 @@ class HugoExporter(MarkdownExporter):
     preprocessors = List([
             FrontMatterPreprocessor,
             FixLatexPreprocessor,
-            RawPreprocessor,
+            # RawPreprocessor,
             ImagesPreprocessor,
         ],
         help="""List of preprocessors, by name or namespace, to enable."""
