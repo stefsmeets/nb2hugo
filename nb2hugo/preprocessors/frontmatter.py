@@ -46,32 +46,10 @@ class FrontMatterPreprocessor(Preprocessor):
         return '', nb.cells
   
     def _toml_frontmatter(self, nb_fm):
-        """Convert a notebook front matter into a toml front matter.
-        
-        Example:
-        >>> toml_frontmatter('# Notebook title\nDate: 2018-06-10')
-        '+++\ntitle = "Notebook title"\ndate = "2018-06-10"\n+++\n'
+        """Pass notebook toml front matter as is.
+        Only the toml delimiter are added.
         """
-        toml_fm = '+++\n'
-        for line in nb_fm.split('\n'):
-            stripped = line.strip()
-            if stripped:
-                if stripped.startswith('# '): # The line contains the title
-                    toml_fm += 'title = "' + stripped[2:].strip() + '"\n'
-                else: # The line is expected to contain a field "key: value0, value1, ..."
-                    s = stripped.split(':', 1)
-                    if len(s) < 2:
-                        warnings.warn(f'This content is not formatted correctly and is ignored: {stripped}')
-                        continue
-                    key, values = s
-                    key = key.lower()
-                    values = [value.strip() for value in values.split(',')]
-                    if len(values) > 1: # The field has multiple values (e.g. multiple tags)
-                        toml_fm += key + ' = [' + ', '.join([f'"{value.strip()}"' for value in values]) + ']\n'
-                    else: # The field has a single value (e.g. date)
-                        toml_fm += f'{key} = "{values[0]}"\n'
-        toml_fm += '+++\n'
-        return toml_fm
+        return '+++\n' + nb_fm + '\n+++\n'
     
     def _markdown_cell(self, source):
         """Create a markdown cell with source content."""
