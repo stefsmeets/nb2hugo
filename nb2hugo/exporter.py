@@ -18,9 +18,9 @@ class HugoExporter(MarkdownExporter):
         [
             FrontMatterPreprocessor,
             FixLatexPreprocessor,
-            RawPreprocessor,
+            # RawPreprocessor,
             ImagesPreprocessor,
             WrapHtmlPreprocessor,
         ],
-        help="""List of preprocessors, by name or namespace, to enable.""",
+        help="""List of preprocessors, by name or namespace, to enable."""
     ).tag(config=True)
