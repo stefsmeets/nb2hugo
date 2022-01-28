@@ -40,8 +40,8 @@ class FrontMatterPreprocessor(Preprocessor):
                         first_content_cell = []
                     return frontmatter, first_content_cell+nb.cells[index + 1:]
                 else:
-                    # the entire cell content is part of the front matter
-                    frontmatter += cell.source
+                    return '', nb.cells
+
         warnings.warn('Notebook does not have a front matter.')
         return '', nb.cells
   
