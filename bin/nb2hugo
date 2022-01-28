@@ -15,14 +15,18 @@ def parse_arguments():
     parser.add_argument('--section', required=True, 
                         help='content section where to create markdown')
     parser.add_argument('--template', help='Jinja2 Markdown Template file')
+
+    parser.set_defaults(template=None)
+
     args = parser.parse_args()
-    _, ext = os.path.splitext(os.path.basename(args.notebook))
+    notebook = args.notebook
+    _, ext = os.path.splitext(os.path.basename(notebook))
     if ext != '.ipynb':
         parser.error('Notebook is expected to have a .ipynb extension.')
-    return args.notebook, args.site_dir, args.section, args.template
+    return notebook, args
     
     
 if __name__ == '__main__':
-    notebook, site_dir, section, template = parse_arguments()
+    notebook, args = parse_arguments()
     writer = HugoWriter()
-    writer.convert(notebook, site_dir, section, template)
+    writer.convert(notebook, args.site_dir, args.section, args.template)
