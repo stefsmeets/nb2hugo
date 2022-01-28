@@ -49,7 +49,7 @@ class HugoWriter:
         target_dir = os.path.join(site_dir, 'content', section)
         os.makedirs(target_dir, exist_ok=True)
         target = os.path.join(target_dir, f'{name}.md')
-        with open(target, 'w') as f:
+        with open(target, 'w', encoding='utf8') as f:
             f.write(markdown)
             shortname = '/'.join(target.split('/')[-2:])
             print(f"Created '{shortname}'")
